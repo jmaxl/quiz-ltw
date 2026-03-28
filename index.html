@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Programmentwurf Quiz - Wie gut kennen Sie das Programm?</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Start Screen -->
+    <div id="start-screen" class="screen active">
+      <div class="logo-container">
+        <h1>Millionär-Quiz</h1>
+        <h2>Das Regierungsprogramm (Entwurf)</h2>
+      </div>
+      <p class="description">Testen Sie Ihr Wissen in 10 kniffligen Fragen, die zufällig aus unserem großen Fragenpool gezogen werden.</p>
+      <button id="start-btn" class="action-btn">Spiel starten</button>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="game-screen" class="screen">
+      <div class="top-bar">
+        <div class="progress">Frage <span id="current-question-num">1</span> / 10</div>
+        <div class="score-display">Score: <span id="score-val">0</span></div>
+      </div>
+      
+      <div class="question-container">
+        <div class="question-box">
+          <p id="question-text">Hier steht die Frage?</p>
+        </div>
+      </div>
+
+      <div class="answers-grid">
+        <button class="answer-btn" data-index="0">
+          <span class="letter">A:</span> <span class="text" id="answer-0-text">Antwort A</span>
+        </button>
+        <button class="answer-btn" data-index="1">
+          <span class="letter">B:</span> <span class="text" id="answer-1-text">Antwort B</span>
+        </button>
+        <button class="answer-btn" data-index="2">
+          <span class="letter">C:</span> <span class="text" id="answer-2-text">Antwort C</span>
+        </button>
+        <button class="answer-btn" data-index="3">
+          <span class="letter">D:</span> <span class="text" id="answer-3-text">Antwort D</span>
+        </button>
+      </div>
+
+      <div class="jokers">
+        <button class="joker-btn" id="joker-5050" title="50:50 Joker">50:50</button>
+      </div>
+    </div>
+
+    <!-- End Screen -->
+    <div id="end-screen" class="screen">
+      <h1>Ergebnis</h1>
+      <p class="final-score">Sie haben <span id="final-correct">0</span> von 10 Fragen richtig beantwortet!</p>
+      <p id="feedback-message" class="feedback-msg">Gut gemacht!</p>
+      <button id="restart-btn" class="action-btn">Neues Spiel</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
