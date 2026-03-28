@@ -14,10 +14,45 @@
     <!-- Start Screen -->
     <div id="start-screen" class="screen active">
       <div class="logo-container">
-        <h1>Millionär-Quiz</h1>
-        <h2>Das Regierungsprogramm (Entwurf)</h2>
+        <h1>Wahlprogramm-Quiz</h1>
+        <h2>10 Fragen, zehn Antworten: Was die Parteien in Sachsen-Anhalt wollen.</h2>
       </div>
-      <p class="description">Testen Sie Ihr Wissen in 10 kniffligen Fragen, die zufällig aus unserem großen Fragenpool gezogen werden.</p>
+      
+      <div class="party-selection-container">
+        <p class="selection-title">Wählen Sie die Parteien für Ihr Quiz:</p>
+        <div class="party-grid">
+          <label class="party-label">
+            <input type="checkbox" value="afd" checked disabled>
+            <span class="party-btn party-afd">AfD</span>
+          </label>
+          <label class="party-label">
+            <input type="checkbox" value="cdu" disabled>
+            <span class="party-btn disabled-party">CDU</span>
+          </label>
+          <label class="party-label">
+            <input type="checkbox" value="spd" disabled>
+            <span class="party-btn disabled-party">SPD</span>
+          </label>
+          <label class="party-label">
+            <input type="checkbox" value="gruene" disabled>
+            <span class="party-btn disabled-party">Grüne</span>
+          </label>
+          <label class="party-label">
+            <input type="checkbox" value="fdp" disabled>
+            <span class="party-btn disabled-party">FDP</span>
+          </label>
+          <label class="party-label">
+            <input type="checkbox" value="linke" disabled>
+            <span class="party-btn disabled-party">Die Linke</span>
+          </label>
+          <label class="party-label">
+            <input type="checkbox" value="bsw" disabled>
+            <span class="party-btn disabled-party">BSW</span>
+          </label>
+        </div>
+        <p class="coming-soon-text">Weitere Parteien folgen in Kürze!</p>
+      </div>
+
       <button id="start-btn" class="action-btn">Spiel starten</button>
     </div>
 

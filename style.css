@@ -23,13 +23,25 @@
 
 body {
   background: var(--bg-dark);
-  background-image: var(--bg-gradient);
+  background-image: url('bg.png'); /* The Sachsen-Anhalt abstract map */
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
   color: var(--text-color);
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
+}
+
+/* Semi-transparent overlay to ensure text is readable */
+body::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(5, 5, 26, 0.7);
+  z-index: -1;
 }
 
 #app {
@@ -92,15 +104,73 @@ h2 {
   color: #a0c0ff;
   text-align: center;
   margin-bottom: 2rem;
+  line-height: 1.4;
+  text-shadow: 0 0 10px rgba(160, 192, 255, 0.3);
 }
 
-.description {
+.party-selection-container {
+  width: 100%;
+  max-width: 600px;
+  background: rgba(10, 20, 60, 0.6);
+  border: 1px solid var(--box-border);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-bottom: 2.5rem;
+  backdrop-filter: blur(10px);
+}
+
+.selection-title {
   text-align: center;
   font-size: 1.2rem;
-  color: #ccc;
-  max-width: 600px;
-  margin-bottom: 3rem;
-  line-height: 1.6;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.party-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.party-label {
+  cursor: pointer;
+}
+
+.party-label input[type="checkbox"] {
+  display: none;
+}
+
+.party-btn {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 30px;
+  border: 2px solid #555;
+  background: rgba(0,0,0,0.5);
+  color: #aaa;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.party-btn.party-afd {
+  border-color: #009EE0;
+  color: #fff;
+  background: rgba(0, 158, 224, 0.2);
+  box-shadow: 0 0 10px rgba(0, 158, 224, 0.5);
+}
+
+.party-btn.disabled-party {
+  opacity: 0.5;
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+
+.coming-soon-text {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #aaa;
+  font-style: italic;
 }
 
 .action-btn {
