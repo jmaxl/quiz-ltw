@@ -408,8 +408,22 @@ h2 {
 
 /* CDU Party Button */
 .party-btn.party-cdu {
-  border-color: #cccccc;
+  border-color: #888;
+  color: #aaa;
+  background: rgba(30, 30, 30, 0.4);
+}
+
+/* When a checkbox is checked, the sibling span gets the active look */
+.party-label input[type="checkbox"]:checked + .party-btn.party-afd {
+  border-color: #009EE0;
   color: #fff;
-  background: rgba(60, 60, 60, 0.5);
-  box-shadow: 0 0 10px rgba(150, 150, 150, 0.4);
+  background: rgba(0, 158, 224, 0.25);
+  box-shadow: 0 0 12px rgba(0, 158, 224, 0.6);
+}
+
+.party-label input[type="checkbox"]:checked + .party-btn.party-cdu {
+  border-color: #dddddd;
+  color: #fff;
+  background: rgba(100, 100, 100, 0.35);
+  box-shadow: 0 0 12px rgba(200, 200, 200, 0.4);
 }
