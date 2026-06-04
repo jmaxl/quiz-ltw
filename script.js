@@ -103,8 +103,9 @@ joker5050Btn.addEventListener('click', useJoker5050);
 answerBtns.forEach(btn => { btn.addEventListener('click', () => { if (isAnswerLocked) return; selectAnswer(btn); }); });
 
 function startGame() {
-  const checkedParties = [...document.querySelectorAll('.party-label input[type="checkbox"]:checked')].map(cb => cb.value);
-  const activeParties = checkedParties.filter(p => QUESTION_POOLS[p] && QUESTION_POOLS[p].length > 0);
+  const activeParties = [...document.querySelectorAll('#party-grid .party-btn.active[data-party]')]
+    .map(btn => btn.getAttribute('data-party'))
+    .filter(p => QUESTION_POOLS[p] && QUESTION_POOLS[p].length > 0);
   if (activeParties.length === 0) { alert('Bitte wählen Sie mindestens eine Partei aus!'); return; }
   let combinedPool = [];
   activeParties.forEach(p => QUESTION_POOLS[p].forEach(q => combinedPool.push({ ...q, party: p })));
@@ -170,3 +171,11 @@ function endGame() {
   else if (score >= 4) { feedbackMsgEl.textContent = "Mittelmäßig. Einige Aspekte haben Sie erkannt."; feedbackMsgEl.style.color = "#ccc"; }
   else { feedbackMsgEl.textContent = "Da ist noch Luft nach oben! Vielleicht die Programme nochmal überfliegen?"; feedbackMsgEl.style.color = "var(--wrong-bg)"; }
 }
+
+
+// Party toggle buttons
+document.querySelectorAll('#party-grid .party-btn[data-party]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    btn.classList.toggle('active');
+  });
+});

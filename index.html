@@ -20,35 +20,14 @@
       
       <div class="party-selection-container">
         <p class="selection-title">Wählen Sie die Parteien für Ihr Quiz:</p>
-        <div class="party-grid">
-          <label class="party-label">
-            <input type="checkbox" value="afd" checked>
-            <span class="party-btn party-afd">AfD</span>
-          </label>
-          <label class="party-label">
-            <input type="checkbox" value="cdu">
-            <span class="party-btn party-cdu">CDU</span>
-          </label>
-          <label class="party-label">
-            <input type="checkbox" value="spd" disabled>
-            <span class="party-btn disabled-party">SPD</span>
-          </label>
-          <label class="party-label">
-            <input type="checkbox" value="gruene" disabled>
-            <span class="party-btn disabled-party">Grüne</span>
-          </label>
-          <label class="party-label">
-            <input type="checkbox" value="fdp" disabled>
-            <span class="party-btn disabled-party">FDP</span>
-          </label>
-          <label class="party-label">
-            <input type="checkbox" value="linke" disabled>
-            <span class="party-btn disabled-party">Die Linke</span>
-          </label>
-          <label class="party-label">
-            <input type="checkbox" value="bsw" disabled>
-            <span class="party-btn disabled-party">BSW</span>
-          </label>
+        <div class="party-grid" id="party-grid">
+          <button class="party-btn party-afd active" data-party="afd">AfD</button>
+          <button class="party-btn party-cdu" data-party="cdu">CDU</button>
+          <button class="party-btn disabled-party" disabled>SPD</button>
+          <button class="party-btn disabled-party" disabled>Grüne</button>
+          <button class="party-btn disabled-party" disabled>FDP</button>
+          <button class="party-btn disabled-party" disabled>Die Linke</button>
+          <button class="party-btn disabled-party" disabled>BSW</button>
         </div>
         <p class="coming-soon-text">Weitere Parteien folgen in Kürze!</p>
       </div>

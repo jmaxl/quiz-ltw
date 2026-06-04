@@ -406,24 +406,32 @@ h2 {
   }
 }
 
-/* CDU Party Button */
-.party-btn.party-cdu {
-  border-color: #888;
+/* Active party button state (toggled by JS) */
+.party-btn.party-afd {
+  border-color: #555;
   color: #aaa;
-  background: rgba(30, 30, 30, 0.4);
+  background: rgba(0, 0, 0, 0.3);
+  cursor: pointer;
 }
-
-/* When a checkbox is checked, the sibling span gets the active look */
-.party-label input[type="checkbox"]:checked + .party-btn.party-afd {
+.party-btn.party-afd.active {
   border-color: #009EE0;
   color: #fff;
   background: rgba(0, 158, 224, 0.25);
-  box-shadow: 0 0 12px rgba(0, 158, 224, 0.6);
+  box-shadow: 0 0 14px rgba(0, 158, 224, 0.6);
 }
-
-.party-label input[type="checkbox"]:checked + .party-btn.party-cdu {
+.party-btn.party-cdu {
+  border-color: #555;
+  color: #aaa;
+  background: rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+.party-btn.party-cdu.active {
   border-color: #dddddd;
   color: #fff;
   background: rgba(100, 100, 100, 0.35);
-  box-shadow: 0 0 12px rgba(200, 200, 200, 0.4);
+  box-shadow: 0 0 14px rgba(220, 220, 220, 0.5);
+}
+.party-btn:not(.disabled-party):hover {
+  opacity: 0.85;
+  transform: scale(1.05);
 }
