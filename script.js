@@ -83,6 +83,7 @@ let currentQuestionIndex = 0;
 let score = 0;
 let isAnswerLocked = false;
 let joker5050Used = false;
+let jokerAudienceUsed = false;
 
 const startScreen  = document.getElementById('start-screen');
 const gameScreen   = document.getElementById('game-screen');
@@ -90,6 +91,9 @@ const endScreen    = document.getElementById('end-screen');
 const startBtn     = document.getElementById('start-btn');
 const restartBtn   = document.getElementById('restart-btn');
 const joker5050Btn = document.getElementById('joker-5050');
+const jokerAudienceBtn = document.getElementById('joker-audience');
+const audienceDialog = document.getElementById('audience-dialog');
+const closeAudienceBtn = document.getElementById('close-audience-btn');
 const questionNumEl  = document.getElementById('current-question-num');
 const scoreEl        = document.getElementById('score-val');
 const questionTextEl = document.getElementById('question-text');
@@ -100,7 +104,25 @@ const feedbackMsgEl  = document.getElementById('feedback-message');
 startBtn.addEventListener('click', startGame);
 restartBtn.addEventListener('click', () => { endScreen.classList.remove('active'); startScreen.classList.add('active'); });
 joker5050Btn.addEventListener('click', useJoker5050);
+jokerAudienceBtn.addEventListener('click', useJokerAudience);
+closeAudienceBtn.addEventListener('click', () => { audienceDialog.close(); });
 answerBtns.forEach(btn => { btn.addEventListener('click', () => { if (isAnswerLocked) return; selectAnswer(btn); }); });
+
+// Dialog light-dismiss fallback
+if (audienceDialog && !('closedBy' in HTMLDialogElement.prototype)) {
+  audienceDialog.addEventListener('click', (event) => {
+    if (event.target !== audienceDialog) return;
+    const rect = audienceDialog.getBoundingClientRect();
+    const isDialogContent = (
+      rect.top <= event.clientY &&
+      event.clientY <= rect.top + rect.height &&
+      rect.left <= event.clientX &&
+      event.clientX <= rect.left + rect.width
+    );
+    if (isDialogContent) return;
+    audienceDialog.close();
+  });
+}
 
 function startGame() {
   const activeParties = [...document.querySelectorAll('#party-grid .party-btn.active[data-party]')]
@@ -110,8 +132,8 @@ function startGame() {
   let combinedPool = [];
   activeParties.forEach(p => QUESTION_POOLS[p].forEach(q => combinedPool.push({ ...q, party: p })));
   gameQuestions = shuffleArray(combinedPool).slice(0, 10);
-  currentQuestionIndex = 0; score = 0; isAnswerLocked = false; joker5050Used = false;
-  joker5050Btn.disabled = false; scoreEl.textContent = score;
+  currentQuestionIndex = 0; score = 0; isAnswerLocked = false; joker5050Used = false; jokerAudienceUsed = false;
+  joker5050Btn.disabled = false; jokerAudienceBtn.disabled = false; scoreEl.textContent = score;
   startScreen.classList.remove('active'); endScreen.classList.remove('active'); gameScreen.classList.add('active');
   loadQuestion();
 }
@@ -161,6 +183,71 @@ function useJoker5050() {
     const origIdx = parseInt(btn.getAttribute('data-original-index'));
     if (origIdx !== currentQ.correct && hidden < 2) { hidden++; btn.classList.add('hidden'); btn.disabled = true; }
   });
+}
+
+function useJokerAudience() {
+  if (isAnswerLocked || jokerAudienceUsed) return;
+  jokerAudienceUsed = true;
+  jokerAudienceBtn.disabled = true;
+  
+  const currentQ = gameQuestions[currentQuestionIndex];
+  const correctOrigIdx = currentQ.correct;
+  
+  let activeDisplayPositions = [];
+  let correctDisplayPos = -1;
+  
+  answerBtns.forEach((btn, displayPos) => {
+    if (!btn.classList.contains('hidden')) {
+      activeDisplayPositions.push(displayPos);
+      const origIdx = parseInt(btn.getAttribute('data-original-index'));
+      if (origIdx === correctOrigIdx) {
+        correctDisplayPos = displayPos;
+      }
+    }
+  });
+  
+  let displayVotes = [0, 0, 0, 0];
+  
+  if (activeDisplayPositions.includes(correctDisplayPos)) {
+    let correctVote = Math.floor(Math.random() * 21) + 55; // 55% to 75%
+    displayVotes[correctDisplayPos] = correctVote;
+    
+    let remaining = 100 - correctVote;
+    let otherActive = activeDisplayPositions.filter(pos => pos !== correctDisplayPos);
+    
+    if (otherActive.length > 0) {
+      for (let i = 0; i < otherActive.length - 1; i++) {
+        let vote = Math.floor(Math.random() * (remaining / 1.5));
+        displayVotes[otherActive[i]] = vote;
+        remaining -= vote;
+      }
+      displayVotes[otherActive[otherActive.length - 1]] = remaining;
+    }
+  } else {
+    let remaining = 100;
+    for (let i = 0; i < activeDisplayPositions.length - 1; i++) {
+      let vote = Math.floor(Math.random() * (remaining / 1.5));
+      displayVotes[activeDisplayPositions[i]] = vote;
+      remaining -= vote;
+    }
+    displayVotes[activeDisplayPositions[activeDisplayPositions.length - 1]] = remaining;
+  }
+  
+  const ids = ['a', 'b', 'c', 'd'];
+  ids.forEach((letter, index) => {
+    const bar = document.getElementById(`bar-${letter}`);
+    const percent = document.getElementById(`percent-${letter}`);
+    
+    bar.style.width = '0%';
+    percent.textContent = '0%';
+    
+    setTimeout(() => {
+      bar.style.width = `${displayVotes[index]}%`;
+      percent.textContent = `${displayVotes[index]}%`;
+    }, 100);
+  });
+  
+  audienceDialog.showModal();
 }
 
 function endGame() {

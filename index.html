@@ -65,6 +65,7 @@
 
       <div class="jokers">
         <button class="joker-btn" id="joker-5050" title="50:50 Joker">50:50</button>
+        <button class="joker-btn" id="joker-audience" title="Publikumsjoker">👥</button>
       </div>
     </div>
 
@@ -76,6 +77,45 @@
       <button id="restart-btn" class="action-btn">Neues Spiel</button>
     </div>
   </div>
+
+  <!-- Audience Joker Modal -->
+  <dialog id="audience-dialog" closedby="any">
+    <div class="modal-content">
+      <h2>Publikumsbefragung</h2>
+      <p class="audience-desc">Das Publikum hat abgestimmt:</p>
+      <div class="chart-container">
+        <div class="chart-bar-wrapper">
+          <span class="bar-label">A:</span>
+          <div class="bar-track">
+            <div class="bar-fill" id="bar-a" style="width: 0%"></div>
+          </div>
+          <span class="bar-percent" id="percent-a">0%</span>
+        </div>
+        <div class="chart-bar-wrapper">
+          <span class="bar-label">B:</span>
+          <div class="bar-track">
+            <div class="bar-fill" id="bar-b" style="width: 0%"></div>
+          </div>
+          <span class="bar-percent" id="percent-b">0%</span>
+        </div>
+        <div class="chart-bar-wrapper">
+          <span class="bar-label">C:</span>
+          <div class="bar-track">
+            <div class="bar-fill" id="bar-c" style="width: 0%"></div>
+          </div>
+          <span class="bar-percent" id="percent-c">0%</span>
+        </div>
+        <div class="chart-bar-wrapper">
+          <span class="bar-label">D:</span>
+          <div class="bar-track">
+            <div class="bar-fill" id="bar-d" style="width: 0%"></div>
+          </div>
+          <span class="bar-percent" id="percent-d">0%</span>
+        </div>
+      </div>
+      <button id="close-audience-btn" class="action-btn-sm">Schließen</button>
+    </div>
+  </dialog>
 
   <script src="script.js"></script>
 </body>
