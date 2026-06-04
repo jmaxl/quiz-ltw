@@ -173,9 +173,10 @@ function endGame() {
 }
 
 
-// Party toggle buttons
+// Party selection (Single selection / Radio button behavior)
 document.querySelectorAll('#party-grid .party-btn[data-party]').forEach(btn => {
   btn.addEventListener('click', () => {
-    btn.classList.toggle('active');
+    document.querySelectorAll('#party-grid .party-btn[data-party]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
   });
 });
