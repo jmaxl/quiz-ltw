@@ -405,3 +405,11 @@ h2 {
     justify-content: center;
   }
 }
+
+/* CDU Party Button */
+.party-btn.party-cdu {
+  border-color: #cccccc;
+  color: #fff;
+  background: rgba(60, 60, 60, 0.5);
+  box-shadow: 0 0 10px rgba(150, 150, 150, 0.4);
+}
