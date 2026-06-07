@@ -2003,10 +2003,28 @@ if (hintDialog && !('closedBy' in HTMLDialogElement.prototype)) {
 function startGame() {
   const activeParties = [...document.querySelectorAll('#party-grid .party-btn.active[data-party]')]
     .map(btn => btn.getAttribute('data-party'))
-    .filter(p => QUESTION_POOLS[p] && QUESTION_POOLS[p].length > 0);
+    .filter(p => p === 'all' || (QUESTION_POOLS[p] && QUESTION_POOLS[p].length > 0));
   if (activeParties.length === 0) { alert('Bitte wählen Sie mindestens eine Partei aus!'); return; }
   let combinedPool = [];
-  activeParties.forEach(p => QUESTION_POOLS[p].forEach(q => combinedPool.push({ ...q, party: p })));
+  if (activeParties.includes('all')) {
+    const allParties = Object.keys(QUESTION_POOLS);
+    const pickedQuestions = [];
+    const remainingQuestions = [];
+    allParties.forEach(p => {
+      const pool = QUESTION_POOLS[p];
+      const randIdx = Math.floor(Math.random() * pool.length);
+      pickedQuestions.push({ ...pool[randIdx], party: p });
+      for (let i = 0; i < pool.length; i++) {
+        if (i !== randIdx) {
+          remainingQuestions.push({ ...pool[i], party: p });
+        }
+      }
+    });
+    const extraQuestions = shuffleArray(remainingQuestions).slice(0, 3);
+    combinedPool = pickedQuestions.concat(extraQuestions);
+  } else {
+    activeParties.forEach(p => QUESTION_POOLS[p].forEach(q => combinedPool.push({ ...q, party: p })));
+  }
   gameQuestions = shuffleArray(combinedPool).slice(0, 10);
   currentQuestionIndex = 0; score = 0; isAnswerLocked = false;
   joker5050Used = false; jokerHintUsed = false; jokerSecondChanceUsed = false; jokerSecondChanceActive = false;
