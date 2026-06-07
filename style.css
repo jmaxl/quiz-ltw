@@ -415,7 +415,7 @@ h2 {
 }
 
 /* Active party button state (toggled by JS) */
-.party-btn.party-afd {
+.party-btn {
   border-color: #555;
   color: #aaa;
   background: rgba(0, 0, 0, 0.3);
@@ -427,29 +427,53 @@ h2 {
   background: rgba(0, 158, 224, 0.25);
   box-shadow: 0 0 14px rgba(0, 158, 224, 0.6);
 }
-.party-btn.party-cdu {
-  border-color: #555;
-  color: #aaa;
-  background: rgba(0, 0, 0, 0.3);
-  cursor: pointer;
-}
-.answer-btn.wrong-first-try {
-  background: #D35400; /* Dark Orange / Amber */
-  border-color: var(--gold);
-  box-shadow: 0 0 20px rgba(211, 84, 0, 0.7);
-  opacity: 0.7;
-  pointer-events: none;
-}
-
 .party-btn.party-cdu.active {
   border-color: #dddddd;
   color: #fff;
   background: rgba(100, 100, 100, 0.35);
   box-shadow: 0 0 14px rgba(220, 220, 220, 0.5);
 }
-.party-btn:not(.disabled-party):hover {
+.party-btn.party-spd.active {
+  border-color: #E3000F;
+  color: #fff;
+  background: rgba(227, 0, 15, 0.25);
+  box-shadow: 0 0 14px rgba(227, 0, 15, 0.6);
+}
+.party-btn.party-gruene.active {
+  border-color: #46962B;
+  color: #fff;
+  background: rgba(70, 150, 43, 0.25);
+  box-shadow: 0 0 14px rgba(70, 150, 43, 0.6);
+}
+.party-btn.party-fdp.active {
+  border-color: #FFED00;
+  color: #fff;
+  background: rgba(255, 237, 0, 0.25);
+  box-shadow: 0 0 14px rgba(255, 237, 0, 0.6);
+}
+.party-btn.party-linke.active {
+  border-color: #BE3075;
+  color: #fff;
+  background: rgba(190, 48, 117, 0.25);
+  box-shadow: 0 0 14px rgba(190, 48, 117, 0.6);
+}
+.party-btn.party-bsw.active {
+  border-color: #7B1FA2;
+  color: #fff;
+  background: rgba(123, 31, 162, 0.25);
+  box-shadow: 0 0 14px rgba(123, 31, 162, 0.6);
+}
+.party-btn:hover {
   opacity: 0.85;
   transform: scale(1.05);
+}
+
+.answer-btn.wrong-first-try {
+  background: #D35400; /* Dark Orange / Amber */
+  border-color: var(--gold);
+  box-shadow: 0 0 20px rgba(211, 84, 0, 0.7);
+  opacity: 0.7;
+  pointer-events: none;
 }
 
 /* Hint (Spickzettel) Dialog Styles */
