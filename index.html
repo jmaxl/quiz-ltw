@@ -92,6 +92,19 @@
     </div>
   </dialog>
 
+  <!-- Second Chance Dialog -->
+  <dialog id="second-chance-dialog">
+    <div class="modal-content">
+      <h2>Zweite Chance?</h2>
+      <p class="hint-desc">Ihre Antwort ist leider falsch.</p>
+      <p style="text-align: center; font-size: 1.1rem; color: #e0e8ff; margin: 0.5rem 0; line-height: 1.5;">Möchten Sie Ihren Zweite-Chance-Joker einsetzen, um diese Antwort zu löschen und es noch einmal zu versuchen?</p>
+      <div style="display: flex; gap: 1.5rem; justify-content: center; width: 100%; margin-top: 1rem;">
+        <button id="use-second-chance-btn" class="action-btn-sm" style="background: var(--correct-bg); border-color: var(--correct-bg);">Ja, Joker nutzen</button>
+        <button id="skip-second-chance-btn" class="action-btn-sm" style="background: var(--wrong-bg); border-color: var(--wrong-bg);">Nein, weiter</button>
+      </div>
+    </div>
+  </dialog>
+
   <script src="script.js"></script>
 </body>
 </html>

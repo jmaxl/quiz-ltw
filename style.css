@@ -475,8 +475,8 @@ h2 {
   pointer-events: none;
 }
 
-/* Hint (Spickzettel) Dialog Styles */
-#hint-dialog {
+/* Hint (Spickzettel) & Second Chance Dialog Styles */
+#hint-dialog, #second-chance-dialog {
   border: 2px solid var(--gold);
   border-radius: 15px;
   background: rgba(10, 20, 60, 0.95);
@@ -488,12 +488,12 @@ h2 {
   margin: auto;
 }
 
-#hint-dialog::backdrop {
+#hint-dialog::backdrop, #second-chance-dialog::backdrop {
   background: rgba(5, 5, 26, 0.85);
   backdrop-filter: blur(5px);
 }
 
-#hint-dialog:not([open]) {
+#hint-dialog:not([open]), #second-chance-dialog:not([open]) {
   display: none;
 }
 

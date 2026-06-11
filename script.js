@@ -1956,7 +1956,7 @@ let isAnswerLocked = false;
 let joker5050Used = false;
 let jokerHintUsed = false;
 let jokerSecondChanceUsed = false;
-let jokerSecondChanceActive = false;
+let pendingWrongBtnElement = null;
 
 const startScreen  = document.getElementById('start-screen');
 const gameScreen   = document.getElementById('game-screen');
@@ -1969,6 +1969,12 @@ const jokerSecondChanceBtn = document.getElementById('joker-second-chance');
 const hintDialog = document.getElementById('hint-dialog');
 const closeHintBtn = document.getElementById('close-hint-btn');
 const hintTextEl   = document.getElementById('hint-text');
+
+// Second Chance Dialog elements
+const secondChanceDialog = document.getElementById('second-chance-dialog');
+const useSecondChanceBtn  = document.getElementById('use-second-chance-btn');
+const skipSecondChanceBtn = document.getElementById('skip-second-chance-btn');
+
 const questionNumEl  = document.getElementById('current-question-num');
 const scoreEl        = document.getElementById('score-val');
 const questionTextEl = document.getElementById('question-text');
@@ -1982,6 +1988,28 @@ joker5050Btn.addEventListener('click', useJoker5050);
 jokerHintBtn.addEventListener('click', useJokerHint);
 jokerSecondChanceBtn.addEventListener('click', useJokerSecondChance);
 closeHintBtn.addEventListener('click', () => { hintDialog.close(); });
+
+useSecondChanceBtn.addEventListener('click', () => {
+  jokerSecondChanceUsed = true;
+  jokerSecondChanceBtn.disabled = true;
+  secondChanceDialog.close();
+  if (pendingWrongBtnElement) {
+    pendingWrongBtnElement.classList.add('wrong-first-try');
+    pendingWrongBtnElement.disabled = true;
+  }
+  isAnswerLocked = false;
+});
+
+skipSecondChanceBtn.addEventListener('click', () => {
+  secondChanceDialog.close();
+  if (pendingWrongBtnElement) {
+    pendingWrongBtnElement.classList.add('wrong');
+  }
+  const currentQ = gameQuestions[currentQuestionIndex];
+  answerBtns.forEach(btn => { if (parseInt(btn.getAttribute('data-original-index')) === currentQ.correct) btn.classList.add('correct'); });
+  setTimeout(() => { currentQuestionIndex++; if (currentQuestionIndex < gameQuestions.length) { loadQuestion(); } else { endGame(); } }, 2000);
+});
+
 answerBtns.forEach(btn => { btn.addEventListener('click', () => { if (isAnswerLocked) return; selectAnswer(btn); }); });
 
 // Dialog light-dismiss fallback
@@ -2027,9 +2055,8 @@ function startGame() {
   }
   gameQuestions = shuffleArray(combinedPool).slice(0, 10);
   currentQuestionIndex = 0; score = 0; isAnswerLocked = false;
-  joker5050Used = false; jokerHintUsed = false; jokerSecondChanceUsed = false; jokerSecondChanceActive = false;
+  joker5050Used = false; jokerHintUsed = false; jokerSecondChanceUsed = false;
   joker5050Btn.disabled = false; jokerHintBtn.disabled = false; jokerSecondChanceBtn.disabled = false;
-  jokerSecondChanceBtn.classList.remove('active-joker');
   scoreEl.textContent = score;
   startScreen.classList.remove('active'); endScreen.classList.remove('active'); gameScreen.classList.add('active');
   loadQuestion();
@@ -2064,18 +2091,11 @@ function checkAnswer(btnElement) {
   btnElement.classList.remove('selected');
   if (selectedOriginalIndex === currentQ.correct) {
     btnElement.classList.add('correct'); score++; scoreEl.textContent = score;
-    if (jokerSecondChanceActive) {
-      jokerSecondChanceActive = false;
-      jokerSecondChanceBtn.classList.remove('active-joker');
-    }
     setTimeout(() => { currentQuestionIndex++; if (currentQuestionIndex < gameQuestions.length) { loadQuestion(); } else { endGame(); } }, 2000);
   } else {
-    if (jokerSecondChanceActive) {
-      jokerSecondChanceActive = false;
-      jokerSecondChanceBtn.classList.remove('active-joker');
-      btnElement.classList.add('wrong-first-try');
-      btnElement.disabled = true;
-      isAnswerLocked = false; // Allow another selection!
+    if (!jokerSecondChanceUsed) {
+      pendingWrongBtnElement = btnElement;
+      secondChanceDialog.showModal();
     } else {
       btnElement.classList.add('wrong');
       answerBtns.forEach(btn => { if (parseInt(btn.getAttribute('data-original-index')) === currentQ.correct) btn.classList.add('correct'); });
@@ -2105,11 +2125,7 @@ function useJokerHint() {
 }
 
 function useJokerSecondChance() {
-  if (isAnswerLocked || jokerSecondChanceUsed || jokerSecondChanceActive) return;
-  jokerSecondChanceUsed = true;
-  jokerSecondChanceActive = true;
-  jokerSecondChanceBtn.disabled = true;
-  jokerSecondChanceBtn.classList.add('active-joker');
+  alert("Der Zweite-Chance-Joker wird automatisch aktiv, wenn Sie eine falsche Antwort geben!");
 }
 
 function endGame() {
