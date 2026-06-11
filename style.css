@@ -155,13 +155,6 @@ h2 {
   transition: all 0.3s;
 }
 
-.party-btn.party-afd {
-  border-color: #009EE0;
-  color: #fff;
-  background: rgba(0, 158, 224, 0.2);
-  box-shadow: 0 0 10px rgba(0, 158, 224, 0.5);
-}
-
 .party-btn.disabled-party {
   opacity: 0.5;
   cursor: not-allowed;
