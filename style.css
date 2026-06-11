@@ -421,10 +421,10 @@ h2 {
   box-shadow: 0 0 14px rgba(0, 158, 224, 0.6);
 }
 .party-btn.party-cdu.active {
-  border-color: #000000;
+  border-color: #555555;
   color: #fff;
-  background: rgba(0, 0, 0, 0.6);
-  box-shadow: 0 0 14px rgba(0, 0, 0, 0.9);
+  background: rgba(85, 85, 85, 0.25);
+  box-shadow: 0 0 14px rgba(85, 85, 85, 0.6);
 }
 .party-btn.party-spd.active {
   border-color: #E3000F;
